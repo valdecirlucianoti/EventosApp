@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Convidado implements Serializable{
@@ -14,8 +15,10 @@ public class Convidado implements Serializable{
 	private static final long serialVersionUID = -1282261234376042889L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotEmpty
 	private String rg;
+	
+	@NotEmpty
 	private String nomeConvidado;
 	
 	@ManyToOne
