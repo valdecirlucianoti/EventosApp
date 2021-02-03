@@ -14,30 +14,24 @@
 <!-- importa os icones do materialize -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+
 <meta charset="ISO-8859-1">
 <title>EventosApp</title>
 </head>
 <body>
-	<h1>Cadastro de Eventos</h1>
+	<h1>Evento</h1>
 	<h3>
 		<a class="waves-effect waves-light btn" href="/eventos"><i
-			class="material-icons right">format_list_bulleted</i>Cadastrar Evento</a>
+			class="material-icons right">format_list_bulleted</i>Lista de Eventos</a>
 	</h3>
-	<form class="container" method="post">
-		Nome: <input type="text" value="" name="nome"> 
+	<div th:each="evento : ${evento}" class="container">
 		<div class="row">
-			<div class="input-field col s6">
-				Local: <input type="text" value="" name="local"> 
-			</div>
-			<div class="input-field col s3">
-				Data: <input type="date" value="" name="data">
-			</div>
-			<div class="input-field col s3"> 
-				Horario: <input type="text" value="" name="horario">
-			</div>
+		<p>Nome: <span th:text="${evento.nome}"></span></p>
+		<p>Local: <span th:text="${evento.local}"></span></p>
+		<p>Data: <span th:text="${evento.data}"></span></p>
+		<p>Horario: <span th:text="${evento.horario}"></span></p>
 		</div>
+	</div>
 
-		<button class="waves-effect waves-light btn" type="submit">Salvar</button>
-	</form>
 </body>
 </html>
