@@ -38,6 +38,9 @@
 			<button class="waves-effect waves-light btn">Adicionar</button>
 		</form>
 	</div>
+	
+	<th:block th:include="mensagemValidacao"></th:block>
+	
 	<div th:each="convidado : ${convidados}" class="container">
 		<div class="row">
 			<div class="input-field col s6">
