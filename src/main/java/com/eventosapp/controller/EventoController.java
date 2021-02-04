@@ -43,6 +43,19 @@ public class EventoController {
 		mv.addObject("eventos", eventos);
 		return mv;
 	}
+	
+	@RequestMapping("/deletarEvento")
+	public String deletarEvento(long codigo) {
+		Evento evento = er.findByCodigo(codigo);
+		if(cr.findByEvento(evento) != null) {
+			Iterable<Convidado> convidados = cr.findByEvento(evento);
+			cr.deleteAll(convidados);
+		}
+		er.delete(evento);
+		return "redirect:/eventos";
+	}
+	
+	// Arrea Dtalhes do evento
 
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
