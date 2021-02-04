@@ -20,7 +20,7 @@ import com.eventosapp.repository.EventoRepository;
 public class EventoController {
 	@Autowired
 	private EventoRepository er;
-	
+
 	@Autowired
 	ConvidadoRepository cr;
 
@@ -31,11 +31,6 @@ public class EventoController {
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.POST)
 	public String form(@Valid Evento evento, BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors()) {
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/cadastrarEvento";
-		}
-
 		er.save(evento);
 		attributes.addFlashAttribute("mensagem", "Evento cadastrado com sucesso!");
 		return "redirect:/cadastrarEvento";
@@ -64,14 +59,9 @@ public class EventoController {
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.POST)
 	public String detalhesEventoPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado,
 			BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors()) {
-			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/{codigo}";
-		}
 		Evento evento = er.findByCodigo(codigo);
 		convidado.setEvento(evento);
 		cr.save(convidado);
-		attributes.addFlashAttribute("mensagem", "Convidado adicionado com sucesso!");
 		return "redirect:/{codigo}";
 	}
 }
