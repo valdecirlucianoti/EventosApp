@@ -1,5 +1,7 @@
 package com.eventosapp.configuration;
 
+import java.net.URI;
+
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -11,10 +13,14 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-@Profile("desenvolvimento")
-public class DataConfigutarion {
+@Profile("producao")
+public class DataConfigutarion_deploy_heroku_Postgres {
 	@Bean
-	public DataSource dataSource() {
+	public BasicDataSource dataSource() {
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		String username = dbUri.getUserInfo();
+		
+		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/springbootbd");

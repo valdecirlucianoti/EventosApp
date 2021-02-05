@@ -55,7 +55,7 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 	
-	// Arrea Dtalhes do evento
+	// Arrea Detalhes do evento
 
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
@@ -76,5 +76,15 @@ public class EventoController {
 		convidado.setEvento(evento);
 		cr.save(convidado);
 		return "redirect:/{codigo}";
+	}
+	
+	@RequestMapping("/deletarConvidado")
+	public String deletarConvidado(String rg) {
+		Convidado convidado = cr.findByRg(rg);
+		cr.delete(convidado);
+		Evento evento = convidado.getEvento();
+		long codigoLong = evento.getCodigo();
+		String codigo = ""+ codigoLong;
+		return "redirect:/"+codigo;
 	}
 }
