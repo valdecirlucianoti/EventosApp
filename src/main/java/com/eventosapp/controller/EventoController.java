@@ -1,8 +1,13 @@
 package com.eventosapp.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eventosapp.model.Convidado;
 import com.eventosapp.model.Evento;
+import com.eventosapp.report.EventoReport;
 import com.eventosapp.repository.ConvidadoRepository;
 import com.eventosapp.repository.EventoRepository;
 
@@ -23,6 +29,9 @@ public class EventoController {
 
 	@Autowired
 	ConvidadoRepository cr;
+	
+	@Autowired
+	EventoReport eventoReport;
 
 	@RequestMapping(value = "/cadastrarEvento", method = RequestMethod.GET)
 	public String form() {
@@ -55,8 +64,55 @@ public class EventoController {
 		return "redirect:/eventos";
 	}
 	
+	@RequestMapping(value = "/editarEvento", method = RequestMethod.GET)
+	public ModelAndView editarEvento() {
+		ModelAndView modelAndView = new ModelAndView("evento/editarEvento");
+		Iterable<Evento> eventos = er.findAll();
+		modelAndView.addObject("eventoobj", new Evento());
+		modelAndView.addObject("eventos", eventos);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/editarEventoByCodigo/{codigo}", method = RequestMethod.GET)
+	public ModelAndView editarEventoByCodigo(@PathVariable("codigo") long codigo) {
+		
+		ModelAndView modelAndView = new ModelAndView("evento/editarEvento");
+		Evento evento = er.findByCodigo(codigo);
+		Iterable<Evento> eventos = er.findAll();
+		modelAndView.addObject("eventoobj", evento);
+		modelAndView.addObject("eventos", eventos);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/editarEventoByCodigo/{codigo}", method = RequestMethod.POST)
+	public String editarEventoTeste(Evento evento) {
+		er.save(evento);
+		return "redirect:/editarEvento";
+	}
+	
 	// Arrea Detalhes do evento
-
+	
+	@RequestMapping("/imprimerelatorio")
+	public void imprimePDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Iterable<Evento> iterable = er.findAll();
+		List<Evento> listDados = (List<Evento>) iterable;
+		
+		byte[] pdf = eventoReport.gerarRelatorio(listDados, "evento", request.getServletContext());
+		
+		response.setContentLength(pdf.length);
+		
+		response.setContentType("application/octet-stream");
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", "relatorio.pdf");
+		
+		response.setHeader(headerKey, headerValue);
+		
+		response.getOutputStream().write(pdf);
+	}
+	
+	
+	
 	@RequestMapping(value = "/{codigo}", method = RequestMethod.GET)
 	public ModelAndView detalhesEvento(@PathVariable("codigo") long codigo) {
 		Evento evento = er.findByCodigo(codigo);

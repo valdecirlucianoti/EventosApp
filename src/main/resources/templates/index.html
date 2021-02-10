@@ -19,17 +19,27 @@
 <title>EventosApp</title>
 </head>
 <body>
-<header>
-	<nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Lista de Eventos</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="waves-effect waves-light btn" href="/cadastrarEvento"><i
-			class="material-icons right">format_list_bulleted</i>Cadastrar Evento</a></li>
-      </ul>
-    </div>
-  </nav>
-</header>
+	<header>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="/eventos" class="brand-logo">Lista de Eventos</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li>
+						<a class="waves-effect waves-light btn"
+							href="/editarEvento"><i class="material-icons right">edit</i>Editar
+							Evento
+						</a>
+					</li>
+					<li>
+						<a class="waves-effect waves-light btn"
+							href="/cadastrarEvento"><i class="material-icons right">format_list_bulleted</i>Cadastrar
+							Evento
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
 	<table class="container">
 		<thead>
 			<tr>
@@ -42,16 +52,25 @@
 		</thead>
 		<tbody>
 			<tr th:each="evento : ${eventos}">
-				<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0,evento.codigo)).build()}"><span th:text="${evento.nome}"></a></span></td>
+				<td><a
+					th:href="${(#mvc.url('EC#detalhesEvento').arg(0,evento.codigo)).build()}"><span
+						th:text="${evento.nome}"></a></span></td>
 				<td><span th:text="${evento.local}"></span></td>
 				<td><span th:text="${evento.data}"></span></td>
 				<td><span th:text="${evento.horario}"></span></td>
-				<td><a 
-				class="waves-effect waves-light btn-small" 
-				th:href="${(#mvc.url('EC#deletarEvento').arg(0,evento.codigo)).build()}"> <i
-				class="material-icons right">delete</i>Deletar</a></td>
+				<td><a class="waves-effect waves-light btn-small"
+					th:href="${(#mvc.url('EC#deletarEvento').arg(0,evento.codigo)).build()}">
+						<i class="material-icons right">delete</i>Deletar
+				</a></td>
 			</tr>
 		</tbody>
 	</table>
+	<br />
+	<hr />
+	<div class="center">
+		<a class="waves-effect waves-light btn-small" href="/imprimerelatorio">
+		<i class="material-icons right">file_download</i>Download Relatorio</a>
+	</div>
+	
 </body>
 </html>

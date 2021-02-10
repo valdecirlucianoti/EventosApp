@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<!-- CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- importa os icones do materialize -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet" href="style/StileCss.css">
+<meta charset="UTF-8">
+<title>EventosApp</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">Editar Eventos</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a class="waves-effect waves-light btn" href="/eventos"><i
+							class="material-icons right">format_list_bulleted</i>Lista de
+							Eventos</a></li>
+				</ul>
+			</div>
+		</nav>
+		
+		<br />
+		<hr />
+		
+		<div class="container">
+			<form class="formEvento" method="post" th:object="${eventoobj}">
+				<div class="row">
+					<div class="input-field col s2">
+						id <input type="text" readonly="readonly" th:field="*{codigo}" name="codigo">
+					</div>
+					<div class="input-field col s10">
+						Nome: <input type="text" th:field="*{nome}" name="nome">
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						Local: <input type="text" th:field="*{local}" name="local">
+					</div>
+					<div class="input-field col s3">
+						Data: <input type="date" th:field="*{data}" name="data">
+					</div>
+					<div class="input-field col s3">
+						Horario: <input type="time" th:field="*{horario}" name="horario">
+					</div>
+				</div>
+				<button class="waves-effect waves-light btn" type="submit">Salvar</button>
+				<button class="waves-effect waves-light btn" type="reset">Limpar</button>
+			</form>
+		</div>
+		<hr />
+
+		<div class="container">
+			<table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Local</th>
+						<th>Data</th>
+						<th>Horario</th>
+						<th>Editar</th>
+						<th>Deletar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="evento : ${eventos}">
+						<td><a th:href="${(#mvc.url('EC#detalhesEvento').arg(0,evento.codigo)).build()}"><span
+							th:text="${evento.nome}"></a></span></td>
+						<td><span th:text="${evento.local}"></span></td>
+						<td><span th:text="${evento.data}"></span></td>
+						<td><span th:text="${evento.horario}"></span></td>
+						
+						<td><a class="waves-effect waves-light btn-small"
+							th:href="${(#mvc.url('EC#editarEventoByCodigo').arg(0,evento.codigo)).build()}">
+								<i class="material-icons right">edit</i>Editar
+						</a></td>
+						
+						<td><a class="waves-effect waves-light btn-small"
+							th:href="${(#mvc.url('EC#deletarEvento').arg(0,evento.codigo)).build()}">
+								<i class="material-icons right">delete</i>Deletar
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</body>
+</html>
