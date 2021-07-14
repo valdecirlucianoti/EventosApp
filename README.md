@@ -14,9 +14,9 @@ Realize o download do 'Eclipse IDE for Enterprise Java and Web Developers - 2020
 https://www.eclipse.org/downloads/
 ```
 
-Abra a IDE e clique em 'help' na barra de menu superior e em seguida em 'Eclipse Marketplace'
+Abra a IDE e clique em 'help' na barra de menu superior e em seguida em 'Eclipse Marketplace' e Realize o download da extenção
 ```
-Realize da extenção 'Spring Tools 4 v41.11.0.RELEASE'
+'Spring Tools 4 v41.11.0.RELEASE'
 ```
 
 Após a instalação navegue até o arquivo 'EventosappApplication.java' e inicie o projeto via 'Spring Tools'
@@ -30,7 +30,7 @@ Realize a instalação do PostgreSQL v3
 https://www.postgresql.org/download/
 ```
 
-Ao importar o projeto, realize importação de 'Projeto Maven', pois o mesmo criara a base de dados por intermedio do Spring Data
+Ao importar o projeto, realize a importação de 'Projeto Maven', pois o Maven sera diretamente responsavel pelo download das dependencias do projeto.
 ```
 https://maven.apache.org/download.cgi
 ```
