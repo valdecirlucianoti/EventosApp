@@ -1,15 +1,10 @@
-# Linguagem JAVA
-## Ultilizado: Spring Boot, Spring DATA, JPA, PostgreSQL, HTML e thymeleaf
-### EventosApp 
-Aplicação que permite o cadastrar eventos e a adição de participantes para o mesmo. Esta aplicação tem como fim treinamento da linguagem java, Spreing boot e thymeleaf.
-
-
-
 # Programa de agendamento de eventos
 
 Projeto gerado na videoaula do canal no YouTube Michelli Brito.
 
 Link da aula:https://youtu.be/OHn1jLHGptw
+
+Aplicação que permite o cadastrar eventos e a adição de participantes para o mesmo. Esta aplicação tem como fim treinamento da linguagem java, Spreing boot e thymeleaf.
 
 ## Como rodar
 
@@ -39,3 +34,5 @@ Ao importar o projeto, realize importação de 'Projeto Maven', pois o mesmo cri
 ```
 https://maven.apache.org/download.cgi
 ```
+### Esta aplicação utiliza: 
+JAVAEE, Spring Boot, Spring DATA, JPA, PostgreSQL, HTML5, CSS3, SCSS, GIT e Thymeleaf
